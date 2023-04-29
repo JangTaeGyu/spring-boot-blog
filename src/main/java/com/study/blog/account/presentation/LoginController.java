@@ -1,6 +1,7 @@
 package com.study.blog.account.presentation;
 
 import com.study.blog.account.application.query.LoginService;
+import com.study.blog.account.application.query.data.JwtTokenData;
 import com.study.blog.account.application.query.request.LoginRequest;
 import com.study.blog.account.presentation.response.JwtTokenResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,9 +24,13 @@ public class LoginController {
     private final LoginService loginService;
 
     @PostMapping
-    public ResponseEntity<JwtTokenResponse> login(@RequestBody @Valid LoginRequest req) {
-        loginService.login(req);
-        JwtTokenResponse response = new JwtTokenResponse();
+    public ResponseEntity<JwtTokenResponse> login(@RequestBody @Valid LoginRequest request) {
+        log.info("[login] - {}", request);
+
+        JwtTokenData tokenData = loginService.login(request);
+        log.info("[register] - successful");
+
+        JwtTokenResponse response = new JwtTokenResponse(tokenData);
         return ResponseEntity.ok(response);
     }
 }

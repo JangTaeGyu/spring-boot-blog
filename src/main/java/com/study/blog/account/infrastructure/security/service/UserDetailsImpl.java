@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.Set;
 
 @Getter
-public class UserDetailsImpl implements UserDetails {
+public class UserDetailsImpl implements UserDetails, CustomUserDetails {
     private final User user;
     private final Set<Role> roles;
 
