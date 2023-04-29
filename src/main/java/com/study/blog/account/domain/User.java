@@ -56,4 +56,16 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles = new HashSet<>();
+
+    protected User() {}
+
+    public User(String email, String password, String name) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+    }
+
+    public void addRole(Role role) {
+        this.roles.add(role);
+    }
 }
