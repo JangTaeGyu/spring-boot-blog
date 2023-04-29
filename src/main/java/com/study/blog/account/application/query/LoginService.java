@@ -2,6 +2,7 @@ package com.study.blog.account.application.query;
 
 import com.study.blog.account.application.DeletedUserException;
 import com.study.blog.account.application.WithdrawalUserException;
+import com.study.blog.account.application.command.LatestAccess;
 import com.study.blog.account.application.query.data.JwtTokenData;
 import com.study.blog.account.application.query.request.LoginRequest;
 import com.study.blog.account.domain.User;
@@ -21,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class LoginService {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
+    private final LatestAccess latestAccess;
 
     private Authentication getAuthentication(String email, String password) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(email, password);
@@ -48,8 +50,7 @@ public class LoginService {
         Authentication authentication = getAuthentication(request.getEmail(), request.getPassword());
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         User checkedUser = checkUserStatus(userDetails.getUser());
-
-        System.out.println(checkedUser.getEmail());
+        latestAccess.update(checkedUser.getEmail());
         return makeJwtTokenData(checkedUser.getEmail());
     }
 }
