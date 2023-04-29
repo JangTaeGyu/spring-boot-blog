@@ -2,7 +2,6 @@ package com.study.blog.account.presentation;
 
 import com.study.blog.account.application.command.RegisterService;
 import com.study.blog.account.application.command.request.RegisterRequest;
-import com.study.blog.account.domain.User;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
