@@ -22,7 +22,7 @@ public class OpenApiConfig {
     @Bean
     public OpenAPI openAPI(@Value("${springdoc.version}") String springdocVersion) {
         Info info = new Info()
-                .title("Spring Boot Blog API")
+                .title("Blog API")
                 .version(springdocVersion)
                 .description("Spring Boot 를 활용한 Blog API 입니다.");
 
