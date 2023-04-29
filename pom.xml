@@ -15,11 +15,18 @@
 	<description>Blog API project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
+		<com.querydsl.version>5.0.0</com.querydsl.version>
+		<io.jsonwebtoken.version>0.11.5</io.jsonwebtoken.version>
+		<com.amazonaws.version>1.12.425</com.amazonaws.version>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -29,7 +36,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
@@ -44,6 +50,80 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+		<!-- cloud -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-aws-context</artifactId>
+			<version>2.2.6.RELEASE</version>
+		</dependency>
+
+		<!-- io.jsonwebtoken -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+			<version>${io.jsonwebtoken.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-impl</artifactId>
+			<version>${io.jsonwebtoken.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-jackson</artifactId>
+			<version>${io.jsonwebtoken.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- querydsl -->
+		<dependency>
+			<groupId>com.querydsl</groupId>
+			<artifactId>querydsl-jpa</artifactId>
+			<version>${com.querydsl.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.querydsl</groupId>
+			<artifactId>querydsl-apt</artifactId>
+			<version>${com.querydsl.version}</version>
+		</dependency>
+
+		<!-- springdoc -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.6.13</version>
+		</dependency>
+
+		<!-- aws -->
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-core</artifactId>
+			<version>${com.amazonaws.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-ses</artifactId>
+			<version>${com.amazonaws.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-s3</artifactId>
+			<version>${com.amazonaws.version}</version>
 		</dependency>
 	</dependencies>
 
