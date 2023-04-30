@@ -6,11 +6,12 @@ import com.study.blog.account.domain.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class AdminUserDataRunner implements CommandLineRunner {
+public class AdminUserDataRunner implements CommandLineRunner, Ordered {
     private final RegisterService registerService;
     private final UserRepository userRepository;
     private final String adminName;
@@ -27,6 +28,11 @@ public class AdminUserDataRunner implements CommandLineRunner {
         this.adminName = adminName;
         this.adminEmail = adminEmail;
         this.adminPassword = adminPassword;
+    }
+
+    @Override
+    public int getOrder() {
+        return 2;
     }
 
     private RegisterRequest makeRegisterRequest() {
