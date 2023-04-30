@@ -1,23 +1,72 @@
 # Description
 
-> Spring Boot 를 빠르게 숙달 하기 위핸 Toy 프로젝트 입니다.
-> 관리자와 사용자 API 로 분리해서 개발이 되며 관리자 API 에서는 블로그 데이터를 생성 하고 사용자는 인증 후 관리자가 생성한 블로그 글을 읽고 좋아요 및 댓글을 남기는 방식으로 구상 하였습니다.
+> Spring Boot 를 빠르게 습득 하기 위핸 Toy 프로젝트 입니다.
 
-### 개발 필수요건
+## 개발 사항
 
-#### 관리자
+- [x] API 인증 - JWT
+- [x] 애플리케이션 최초 실행 할 때 관리자 계정 생성
+- [x] Swagger API Documentation 작성
+- [ ] 단위 테스트(Unit Test) 코드 추가
+- [x] application.properties 파일을 환경에 따라 다르게 적용
+- [ ] RESTful API 개발 - HATEOAS 적용
+- [x] 관리자와 사용자 API 를 분리
+- [x] 다국어 지원
+- [x] DDD(Domain Driven Design) 개발 - 아직 개념이 완벽하지가 않습니다.
 
-- [x] 인증 방식은 JWT 로 진행을 합니다.
-- [x] 등록 가능한 카테고리 Depth 는 3 Depth 까지 가능 합니다.
-- [x] 블로그 글을 작성 후 slug 로 블로글 조회를 합니다.
+# Tech Stacks
 
-### 사용자
+- Java 17
+- Spring Boot 2.7.*
+- Postgresql
+- AWS - SES, S3
+- Swagger Open API 3.0
 
-- [x] 회원 가입은 이메일 인증으로 진행을 합니다.
-- [x] 로그인을 후 서비스 이용이 가능 합니다.
-- [x] 블로그 글에 대한 좋아요, 댓글로 블로그 글에 대한 의사 표현이 가능 합니다.
-- [x] 첨부 파일 다운로드가 가능 합니다.
+# Entity Relationship
 
+![Entity_Relationship](/images/blog_entity_relationship.png)
+
+# Configuration
+
+```properties
+# timezone
+app.timezone=Asia/Seoul
+
+# locale
+spring.web.locale=ko
+
+# jwt
+app.jwt-secret=
+app.jwt-expiration-date=
+
+# datasource
+spring.datasource.url=
+spring.datasource.username=
+spring.datasource.password=
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+# jpa
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+
+# aws
+cloud.aws.credentials.access-key=
+cloud.aws.credentials.secret-key=
+cloud.aws.region.static=
+
+# aws - s3
+cloud.aws.s3.bucket=
+
+# aws - ses
+cloud.aws.ses.form.email=
+
+# admin user
+admin.user.name=
+admin.user.email=
+admin.user.password=
+
+```
 # API
 
 ## 관리자
