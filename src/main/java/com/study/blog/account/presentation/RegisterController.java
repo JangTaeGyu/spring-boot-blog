@@ -41,7 +41,7 @@ public class RegisterController {
     public ResponseEntity<Void> register(@RequestBody @Valid RegisterRequest request) {
         log.info("[register] - {}", request);
 
-        registerService.register(request);
+        // registerService.register(request);
         log.info("[register] - successful");
 
         return new ResponseEntity<>(null, HttpStatus.CREATED);
