@@ -24,7 +24,7 @@
 
 # Entity Relationship
 
-![Entity_Relationship](/images/entity.png)
+![Entity_Relationship](/images/blog_entity_relationship.png)
 
 # Configuration
 
