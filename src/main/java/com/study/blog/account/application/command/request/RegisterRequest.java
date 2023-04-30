@@ -2,12 +2,15 @@ package com.study.blog.account.application.command.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-@Getter @ToString
+@Getter
+@Setter
+@ToString
 public class RegisterRequest {
     @NotBlank
     @Email
