@@ -5,7 +5,8 @@ import lombok.Getter;
 
 import javax.persistence.*;
 
-@Getter @EqualsAndHashCode(of = "id")
+@Getter
+@EqualsAndHashCode(of = "id")
 @Entity
 @Table(name = "roles")
 public class Role {
@@ -15,4 +16,11 @@ public class Role {
 
     @Column(length = 50)
     private String name;
+
+    protected Role() {
+    }
+
+    public Role(String name) {
+        this.name = name;
+    }
 }

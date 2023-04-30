@@ -6,4 +6,8 @@ import java.util.Optional;
 
 public interface RoleRepository extends Repository<Role, Long> {
     Optional<Role> findByName(String name);
+
+    Long count();
+
+    void save(Role role);
 }
