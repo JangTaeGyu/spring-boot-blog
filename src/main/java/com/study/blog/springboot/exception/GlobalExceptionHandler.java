@@ -42,6 +42,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(response, httpStatus);
     }
+
     @ExceptionHandler(value = HttpException.class)
     public ResponseEntity<ErrorResponse> handleHttpException(HttpException e, HttpServletRequest request) {
         ErrorResponse response = new ErrorResponse(e.getHttpStatus().value(), request.getRequestURI(), e.getMessage());
