@@ -2,7 +2,9 @@ package com.study.blog.account.domain;
 
 public class UserMapper {
     public static UserDto toDto(User user) {
-        return new UserDto(user.getEmail(),
+        return new UserDto(
+                user.getCode(),
+                user.getEmail(),
                 user.getName(),
                 user.getImagePublicUrl(),
                 user.getLatestAccessedAt(),

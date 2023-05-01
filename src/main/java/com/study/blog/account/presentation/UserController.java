@@ -49,7 +49,7 @@ public class UserController {
     })
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody @Valid CreateUserRequest request) {
+    public ResponseEntity<UserResponse> create(@RequestBody @Valid CreateUserRequest request) {
         log.info("[create] - {}", request);
 
         UserDto user = userCommandService.createUser(request);

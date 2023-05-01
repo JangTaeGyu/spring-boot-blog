@@ -8,6 +8,9 @@ import java.util.Set;
 
 @Getter
 public class UserDto {
+    @Schema(description = "회원 코드")
+    private final String code;
+    
     @Schema(description = "이메일")
     private final String email;
 
@@ -28,13 +31,15 @@ public class UserDto {
 
     private final RoleDto role;
 
-    public UserDto(String email,
+    public UserDto(String code,
+                   String email,
                    String name,
                    String imagePublicUrl,
                    LocalDateTime latestAccessedAt,
                    LocalDateTime createdAt,
                    LocalDateTime updatedAt,
                    Set<Role> roles) {
+        this.code = code;
         this.email = email;
         this.name = name;
         this.imagePublicUrl = imagePublicUrl;

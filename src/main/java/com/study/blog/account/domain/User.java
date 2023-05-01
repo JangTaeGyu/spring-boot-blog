@@ -4,10 +4,10 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.hibernate.annotations.*;
 
-import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,6 +20,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(length = 20, nullable = false, unique = true)
+    @Comment("회원 코드")
+    private String code;
 
     @Column(length = 150, nullable = false)
     private String email;
@@ -59,7 +63,8 @@ public class User {
 
     protected User() {}
 
-    public User(String email, String password, String name) {
+    public User(String code, String email, String password, String name) {
+        this.code = code;
         this.email = email;
         this.password = password;
         this.name = name;
