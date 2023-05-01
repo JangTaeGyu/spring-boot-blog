@@ -2,6 +2,7 @@ package com.study.blog.account.presentation;
 
 import com.study.blog.account.application.command.UserCommandService;
 import com.study.blog.account.application.command.request.CreateUserRequest;
+import com.study.blog.account.application.command.request.UpdateUserRequest;
 import com.study.blog.account.domain.UserDto;
 import com.study.blog.account.presentation.response.UserResponse;
 import com.study.blog.springboot.constant.OpenApiConstant;
@@ -18,10 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -54,6 +52,19 @@ public class UserController {
 
         UserDto user = userCommandService.createUser(request);
         log.info("[create] - successful");
+
+        UserResponse response = new UserResponse(user);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{userCode}")
+    public ResponseEntity<UserResponse> update(
+            @PathVariable String userCode,
+            @RequestBody @Valid UpdateUserRequest request) {
+        log.info("[update] - {}", request);
+
+        UserDto user = userCommandService.updateUser(userCode, request);
+        log.info("[update] - successful");
 
         UserResponse response = new UserResponse(user);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
