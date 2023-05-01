@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter @ToString
 public class CreateUserRequest {
@@ -27,5 +28,7 @@ public class CreateUserRequest {
     @Schema(description = "비밀번호 확인")
     private String passwordConfirm;
 
+    @NotNull
+    @Schema(description = "룰(역활) 타입")
     private RoleType roleType;
 }

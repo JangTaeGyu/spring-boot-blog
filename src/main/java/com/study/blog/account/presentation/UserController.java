@@ -4,6 +4,14 @@ import com.study.blog.account.application.command.UserCommandService;
 import com.study.blog.account.application.command.request.CreateUserRequest;
 import com.study.blog.account.domain.UserDto;
 import com.study.blog.account.presentation.response.UserResponse;
+import com.study.blog.springboot.constant.OpenApiConstant;
+import com.study.blog.springboot.exception.ValidationResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +33,20 @@ import javax.validation.Valid;
 public class UserController {
     private final UserCommandService userCommandService;
 
+    @Operation(
+            summary = "회원 등록",
+            security = @SecurityRequirement(name = OpenApiConstant.SECURITY_NAME))
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "Created",
+                    content = @Content(schema = @Schema(implementation = UserResponse.class))),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
+            @ApiResponse(
+                    responseCode = "422",
+                    description = "Unprocessable Entity",
+                    content = @Content(schema = @Schema(implementation = ValidationResponse.class)))
+    })
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping
     public ResponseEntity<?> create(@RequestBody @Valid CreateUserRequest request) {
