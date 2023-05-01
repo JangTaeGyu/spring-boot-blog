@@ -27,5 +27,5 @@ public class CreateUserRequest {
     @Schema(description = "비밀번호 확인")
     private String passwordConfirm;
 
-    private RoleType role;
+    private RoleType roleType;
 }

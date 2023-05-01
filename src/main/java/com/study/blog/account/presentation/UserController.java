@@ -3,6 +3,7 @@ package com.study.blog.account.presentation;
 import com.study.blog.account.application.command.UserCommandService;
 import com.study.blog.account.application.command.request.CreateUserRequest;
 import com.study.blog.account.domain.UserDto;
+import com.study.blog.account.presentation.response.UserResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,7 @@ public class UserController {
         UserDto user = userCommandService.createUser(request);
         log.info("[create] - successful");
 
-        return new ResponseEntity<>(null, HttpStatus.CREATED);
+        UserResponse response = new UserResponse(user);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }
