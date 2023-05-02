@@ -75,3 +75,9 @@ admin.user.password=
 
 - 관리자 로그인 `(POST /api/admin/login)`
 - [임시] - 관리자 회원가입 `(POST /api/admin/register)`
+
+### 회원 관리
+
+- 회원 등록 `(POST /api/admin/users)`
+- 회원 수정 `(PUT /api/admin/users/{userCode})`
+
