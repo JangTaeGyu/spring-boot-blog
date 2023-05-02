@@ -57,6 +57,21 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+    @Operation(
+            summary = "회원 수정",
+            security = @SecurityRequirement(name = OpenApiConstant.SECURITY_NAME))
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "OK",
+                    content = @Content(schema = @Schema(implementation = UserResponse.class))),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
+            @ApiResponse(
+                    responseCode = "422",
+                    description = "Unprocessable Entity",
+                    content = @Content(schema = @Schema(implementation = ValidationResponse.class)))
+    })
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping("/{userCode}")
     public ResponseEntity<UserResponse> update(
             @PathVariable String userCode,
