@@ -39,7 +39,8 @@ public class UserController {
                     responseCode = "201",
                     description = "Created",
                     content = @Content(schema = @Schema(implementation = UserResponse.class))),
-            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
+            @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
+            @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content),
             @ApiResponse(
                     responseCode = "422",
                     description = "Unprocessable Entity",
@@ -66,6 +67,8 @@ public class UserController {
                     description = "OK",
                     content = @Content(schema = @Schema(implementation = UserResponse.class))),
             @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
+            @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
+            @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content),
             @ApiResponse(
                     responseCode = "422",
                     description = "Unprocessable Entity",
