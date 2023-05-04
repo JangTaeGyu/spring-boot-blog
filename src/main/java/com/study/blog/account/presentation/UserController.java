@@ -3,6 +3,7 @@ package com.study.blog.account.presentation;
 import com.study.blog.account.application.command.UserCommandService;
 import com.study.blog.account.application.command.request.CreateUserRequest;
 import com.study.blog.account.application.command.request.UpdateUserRequest;
+import com.study.blog.account.application.query.UserService;
 import com.study.blog.account.domain.UserDto;
 import com.study.blog.account.presentation.response.UserResponse;
 import com.study.blog.springboot.constant.OpenApiConstant;
@@ -30,6 +31,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class UserController {
     private final UserCommandService userCommandService;
+    private final UserService userService;
 
     @Operation(
             summary = "회원 등록",
@@ -59,6 +61,30 @@ public class UserController {
     }
 
     @Operation(
+            summary = "회원 상세보기",
+            security = @SecurityRequirement(name = OpenApiConstant.SECURITY_NAME))
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "OK",
+                    content = @Content(schema = @Schema(implementation = UserResponse.class))),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
+            @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
+            @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content)
+    })
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/{userCode}")
+    public ResponseEntity<UserResponse> show(@PathVariable String userCode) {
+        log.info("[show] - user code = {}", userCode);
+
+        UserDto user = userService.getUser(userCode);
+        log.info("[show] - successful");
+
+        UserResponse response = new UserResponse(user);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @Operation(
             summary = "회원 수정",
             security = @SecurityRequirement(name = OpenApiConstant.SECURITY_NAME))
     @ApiResponses(value = {
@@ -79,7 +105,7 @@ public class UserController {
     public ResponseEntity<UserResponse> update(
             @PathVariable String userCode,
             @RequestBody @Valid UpdateUserRequest request) {
-        log.info("[update] - {}", request);
+        log.info("[update] - user code = {}, {}", userCode, request);
 
         UserDto user = userCommandService.updateUser(userCode, request);
         log.info("[update] - successful");
