@@ -49,12 +49,34 @@ public class UserDto {
         this.role = new RoleDto(roles);
     }
 
+    public UserDto(String code,
+                   String email,
+                   String name,
+                   String imagePublicUrl,
+                   LocalDateTime latestAccessedAt,
+                   LocalDateTime createdAt,
+                   LocalDateTime updatedAt,
+                   String roleName) {
+        this.code = code;
+        this.email = email;
+        this.name = name;
+        this.imagePublicUrl = imagePublicUrl;
+        this.latestAccessedAt = latestAccessedAt;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.role = new RoleDto(roleName);
+    }
+
     @Getter
     private static class RoleDto {
         private final String name;
 
         public RoleDto(Set<Role> roles) {
             this.name = roles.stream().findFirst().map(Role::getName).orElse(null);
+        }
+
+        public RoleDto(String name) {
+            this.name = name;
         }
     }
 }
