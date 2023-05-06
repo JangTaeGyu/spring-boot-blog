@@ -113,4 +113,15 @@ public class UserController {
         UserResponse response = new UserResponse(user);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping("/{userCode}")
+    public ResponseEntity<Void> delete(@PathVariable String userCode) {
+        log.info("[delete] - user code = {}", userCode);
+
+        userCommandService.deleteUser(userCode);
+        log.info("[delete] - successful");
+
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    }
 }

@@ -77,4 +77,8 @@ public class User {
     public void update(String name) {
         this.name = name;
     }
+
+    public void delete() {
+        this.deletedAt = LocalDateTime.now();
+    }
 }
