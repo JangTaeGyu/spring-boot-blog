@@ -113,4 +113,24 @@ public class UserController {
         UserResponse response = new UserResponse(user);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+
+    @Operation(
+            summary = "회원 삭제",
+            security = @SecurityRequirement(name = OpenApiConstant.SECURITY_NAME))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "No Content", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
+            @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
+            @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content)
+    })
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping("/{userCode}")
+    public ResponseEntity<Void> delete(@PathVariable String userCode) {
+        log.info("[delete] - user code = {}", userCode);
+
+        userCommandService.deleteUser(userCode);
+        log.info("[delete] - successful");
+
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    }
 }

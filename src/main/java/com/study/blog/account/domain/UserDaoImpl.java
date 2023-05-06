@@ -43,7 +43,9 @@ public class UserDaoImpl implements UserDao {
             query.select(selectFields())
                     .from(user)
                     .innerJoin(user.roles, role)
-                    .where(user.code.eq(code))
+                    .where(
+                            user.code.eq(code),
+                            user.deletedAt.isNull())
                     .fetchFirst()
         );
     }

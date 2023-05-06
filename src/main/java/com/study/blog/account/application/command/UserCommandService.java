@@ -34,4 +34,10 @@ public class UserCommandService {
         user.update(request.getName());
         return UserMapper.toDto(user);
     }
+
+    @Transactional
+    public void deleteUser(String userCode) {
+        User user = userRepository.findByCode(userCode).orElseThrow(NotFoundUserException::new);
+        user.delete();
+    }
 }
