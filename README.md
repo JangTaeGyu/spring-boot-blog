@@ -74,10 +74,13 @@ admin.user.password=
 ### 인증
 
 - 관리자 로그인 `(POST /api/admin/login)`
-- [임시] - 관리자 회원가입 `(POST /api/admin/register)`
+- ~~관리자 회원가입 `(POST /api/admin/register)`~~ 
+- 로그인 확인 `(GET /api/admin/me)`
 
 ### 회원 관리
 
 - 회원 등록 `(POST /api/admin/users)`
+- 회원 상세보기 `(GET /api/admin/users/{userCode})`
 - 회원 수정 `(PUT /api/admin/users/{userCode})`
+- 회원 삭제 `(DELETE /api/admin/users/{userCode})`
 
