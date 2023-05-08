@@ -40,4 +40,9 @@ public class Post {
     private LocalDateTime updatedAt;
 
     protected Post() {}
+
+    public Post(String title, String body) {
+        this.title = title;
+        this.body = body;
+    }
 }
