@@ -45,4 +45,8 @@ public class Post {
         this.title = title;
         this.body = body;
     }
+
+    public void generateSlug(SlugGenerator slugGenerator) {
+        this.slug = slugGenerator.generate(this.title);
+    }
 }
