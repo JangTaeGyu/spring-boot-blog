@@ -1,6 +1,7 @@
 package com.study.blog.post.presentation;
 
 import com.study.blog.post.application.command.CreatePostService;
+import com.study.blog.post.application.command.UpdatePostService;
 import com.study.blog.post.application.command.request.InputPostRequest;
 import com.study.blog.post.domain.PostDto;
 import com.study.blog.post.presentation.response.PostResponse;
@@ -18,10 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -32,6 +30,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class PostController {
     private final CreatePostService createPostService;
+    private final UpdatePostService updatePostService;
 
     @Operation(
             summary = "포스트 등록",
@@ -52,10 +51,22 @@ public class PostController {
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping
     public ResponseEntity<PostResponse> create(@RequestBody @Valid InputPostRequest request) {
-        log.info("[Create] - {}", request);
+        log.info("[create] - {}", request);
 
         PostDto post = createPostService.createPost(request);
-        log.info("[Create] - successful");
+        log.info("[create] - successful");
+
+        PostResponse response = new PostResponse(post);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping("/{slug}")
+    public ResponseEntity<PostResponse> update(@PathVariable String slug, @RequestBody @Valid InputPostRequest request) {
+        log.info("[update] - slug = {}, {}", slug, request);
+
+        PostDto post = updatePostService.updatePost(slug, request);
+        log.info("[update] - successful");
 
         PostResponse response = new PostResponse(post);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
