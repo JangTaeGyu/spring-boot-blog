@@ -8,4 +8,5 @@ public interface PostRepository extends Repository<Post, Long> {
     void save(Post post);
     Optional<Post> findBySlug(String slug);
     boolean existsBySlug(String slug);
+    void deleteById(Long id);
 }
