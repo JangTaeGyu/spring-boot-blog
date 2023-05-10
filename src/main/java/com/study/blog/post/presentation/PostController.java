@@ -60,6 +60,22 @@ public class PostController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+    @Operation(
+            summary = "포스트 수정",
+            security = @SecurityRequirement(name = OpenApiConstant.SECURITY_NAME))
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "OK",
+                    content = @Content(schema = @Schema(implementation = PostResponse.class))),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
+            @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
+            @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content),
+            @ApiResponse(
+                    responseCode = "422",
+                    description = "Unprocessable Entity",
+                    content = @Content(schema = @Schema(implementation = ValidationResponse.class)))
+    })
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping("/{slug}")
     public ResponseEntity<PostResponse> update(@PathVariable String slug, @RequestBody @Valid InputPostRequest request) {
