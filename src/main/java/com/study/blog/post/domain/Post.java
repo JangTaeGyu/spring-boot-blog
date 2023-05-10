@@ -46,6 +46,11 @@ public class Post {
         this.body = body;
     }
 
+    public void update(String title, String body) {
+        this.title = title;
+        this.body = body;
+    }
+
     public void generateSlug(SlugGenerator slugGenerator) {
         this.slug = slugGenerator.generate(this.title);
     }
