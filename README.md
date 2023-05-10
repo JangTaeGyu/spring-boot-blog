@@ -84,3 +84,9 @@ admin.user.password=
 - 회원 수정 `(PUT /api/admin/users/{userCode})`
 - 회원 삭제 `(DELETE /api/admin/users/{userCode})`
 
+### 포스트
+
+- 포스트 등록 `(POST /api/admin/posts)`
+- 포스트 수정 `(PUT /api/admin/posts/{slug})`
+- 포스트 삭제 `(DELETE /api/admin/posts/{slug})`
+
