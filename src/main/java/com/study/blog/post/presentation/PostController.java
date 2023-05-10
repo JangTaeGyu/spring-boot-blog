@@ -90,6 +90,15 @@ public class PostController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+    @Operation(
+            summary = "포스트 삭제",
+            security = @SecurityRequirement(name = OpenApiConstant.SECURITY_NAME))
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "No Content", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
+            @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
+            @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content)
+    })
     @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("/{slug}")
     public ResponseEntity<PostResponse> delete(@PathVariable String slug) {
