@@ -1,6 +1,7 @@
 package com.study.blog.post.presentation;
 
 import com.study.blog.post.application.command.CreatePostService;
+import com.study.blog.post.application.command.DeletePostService;
 import com.study.blog.post.application.command.UpdatePostService;
 import com.study.blog.post.application.command.request.InputPostRequest;
 import com.study.blog.post.domain.PostDto;
@@ -31,6 +32,7 @@ import javax.validation.Valid;
 public class PostController {
     private final CreatePostService createPostService;
     private final UpdatePostService updatePostService;
+    private final DeletePostService deletePostService;
 
     @Operation(
             summary = "포스트 등록",
@@ -86,5 +88,16 @@ public class PostController {
 
         PostResponse response = new PostResponse(post);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @DeleteMapping("/{slug}")
+    public ResponseEntity<PostResponse> delete(@PathVariable String slug) {
+        log.info("[delete] - slug = {}", slug);
+
+        deletePostService.deletePost(slug);
+        log.info("[delete] - successful");
+
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
 }
