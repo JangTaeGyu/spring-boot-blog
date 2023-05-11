@@ -2,6 +2,7 @@ package com.study.blog.post.domain;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.*;
 
 import javax.persistence.Entity;
@@ -39,6 +40,7 @@ public class Post {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    @Setter
     @Embedded
     @AttributeOverride(name = "id", column = @Column(name = "category_id"))
     private CategoryFK categoryFK;
@@ -51,13 +53,16 @@ public class Post {
         this.body = body;
     }
 
-    public void update(CategoryFK categoryFK, String title, String body) {
-        this.categoryFK = categoryFK;
+    public void update(String title, String body) {
         this.title = title;
         this.body = body;
     }
-
     public void generateSlug(SlugGenerator slugGenerator) {
-        this.slug = slugGenerator.generate(this.title);
+        String newSlug = slugGenerator.generate(this.title);
+        if (!this.slug.equals(newSlug)) {
+            slugGenerator.checkSlugDuplication(newSlug);
+        }
+
+        this.slug = newSlug;
     }
 }

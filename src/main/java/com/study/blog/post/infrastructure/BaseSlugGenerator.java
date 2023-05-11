@@ -17,7 +17,8 @@ public class BaseSlugGenerator implements SlugGenerator {
                 .replaceAll("-{2,}", "-");
     }
 
-    private void checkSlugDuplication(String slug) {
+    @Override
+    public void checkSlugDuplication(String slug) {
         if (postRepository.existsBySlug(slug)) {
             throw new DuplicateSlugException();
         }
@@ -25,8 +26,6 @@ public class BaseSlugGenerator implements SlugGenerator {
 
     @Override
     public String generate(String title) {
-        String slug =  convertToSlug(title);
-        checkSlugDuplication(slug);
-        return slug;
+        return convertToSlug(title);
     }
 }
