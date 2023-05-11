@@ -54,10 +54,9 @@ public class Post {
         this.categoryFK = categoryFK;
     }
 
-    public void update(String slug, String title, String body, CategoryFK categoryFK) {
+    public void update(String slug, String title, String body) {
         this.slug = slug;
         this.title = title;
         this.body = body;
-        this.categoryFK = categoryFK;
     }
 }
