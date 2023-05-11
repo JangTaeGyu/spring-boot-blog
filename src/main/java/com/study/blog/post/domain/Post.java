@@ -1,6 +1,5 @@
 package com.study.blog.post.domain;
 
-import com.study.blog.category.domain.Category;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.hibernate.annotations.*;
@@ -13,7 +12,7 @@ import java.time.LocalDateTime;
 @Getter @EqualsAndHashCode(of = "id")
 @Entity
 @Table(name = "posts")
-@DynamicInsert @DynamicUpdate
+@DynamicInsert
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,22 +39,20 @@ public class Post {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @Embedded
+    @AttributeOverride(name = "id", column = @Column(name = "category_id"))
+    private CategoryFK categoryFK;
 
     protected Post() {}
 
-    public Post(String title, String body) {
+    public Post(CategoryFK categoryFK, String title, String body) {
+        this.categoryFK = categoryFK;
         this.title = title;
         this.body = body;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public void update(String title, String body) {
+    public void update(CategoryFK categoryFK, String title, String body) {
+        this.categoryFK = categoryFK;
         this.title = title;
         this.body = body;
     }

@@ -16,19 +16,18 @@ public class CreatePostService {
     private final CategoryFetcher categoryFetcher;
     private final SlugGenerator slugGenerator;
 
-    private Post makePostEntity(InputPostRequest request) {
-        log.info("[MakePostEntity] - start");
-        Post post = new Post(request.getTitle(), request.getBody());
-
-        // 카테고리 추가
-        Category category = categoryFetcher.fetchCategoryBy(request.getCategoryId());
-        post.setCategory(category);
-        return post;
-    }
 
     public PostDto createPost(InputPostRequest request) {
-        Post post = makePostEntity(request);
+        // 카테고리 검증
+        Category category = categoryFetcher.fetchCategoryBy(request.getCategoryId());
+        
+        // post entity 생성
+        Post post = new Post(new CategoryFK(category.getId()), request.getTitle(), request.getBody());
+        
+        // slug 생성
         post.generateSlug(slugGenerator);
+        
+        // post 저장
         postRepository.save(post);
         return PostMapper.toDto(post);
     }
