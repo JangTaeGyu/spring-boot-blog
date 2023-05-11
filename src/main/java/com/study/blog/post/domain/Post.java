@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter @EqualsAndHashCode(of = "id")
 @Entity
 @Table(name = "posts")
-@DynamicInsert
+@DynamicInsert @DynamicUpdate
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,16 +53,16 @@ public class Post {
         this.body = body;
     }
 
-    public void update(String title, String body) {
-        this.title = title;
+    public void update(String body) {
         this.body = body;
     }
-    public void generateSlug(SlugGenerator slugGenerator) {
-        String newSlug = slugGenerator.generate(this.title);
+    public void generateSlug(SlugGenerator slugGenerator, String title) {
+        String newSlug = slugGenerator.generate(title);
         if (!this.slug.equals(newSlug)) {
             slugGenerator.checkSlugDuplication(newSlug);
         }
 
         this.slug = newSlug;
+        this.title = title;
     }
 }

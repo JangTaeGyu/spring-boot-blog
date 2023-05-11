@@ -25,7 +25,7 @@ public class CreatePostService {
         Post post = new Post(new CategoryFK(category.getId()), request.getTitle(), request.getBody());
         
         // slug 생성
-        post.generateSlug(slugGenerator);
+        post.generateSlug(slugGenerator, request.getTitle());
         
         // post 저장
         postRepository.save(post);
