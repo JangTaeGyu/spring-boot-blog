@@ -9,6 +9,9 @@ import javax.validation.constraints.NotNull;
 @Getter @ToString
 public class InputPostRequest {
     @NotBlank
+    private Long categoryId;
+
+    @NotBlank
     private String title;
 
     @NotNull
