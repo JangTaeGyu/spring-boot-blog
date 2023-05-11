@@ -1,5 +1,7 @@
 package com.study.blog.post.application.command;
 
+import com.study.blog.category.application.query.CategoryFetcher;
+import com.study.blog.category.domain.Category;
 import com.study.blog.post.application.command.request.InputPostRequest;
 import com.study.blog.post.domain.*;
 import lombok.RequiredArgsConstructor;
@@ -11,16 +13,22 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CreatePostService {
     private final PostRepository postRepository;
+    private final CategoryFetcher categoryFetcher;
     private final SlugGenerator slugGenerator;
 
-    private Post makePostEntity(InputPostRequest request) {
-        log.info("[MakePostEntity] - start");
-        return new Post(request.getTitle(), request.getBody());
-    }
 
     public PostDto createPost(InputPostRequest request) {
-        Post post = makePostEntity(request);
-        post.generateSlug(slugGenerator);
+        // 카테고리 검증
+        Category category = categoryFetcher.fetchCategoryBy(request.getCategoryId());
+
+        // post entity 생성
+        Post post = new Post(
+                slugGenerator.generate(request.getTitle(), null),
+                request.getTitle(),
+                request.getBody(),
+                new CategoryFK(category.getId()));
+
+        // post 저장
         postRepository.save(post);
         return PostMapper.toDto(post);
     }

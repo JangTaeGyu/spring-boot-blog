@@ -2,6 +2,7 @@ package com.study.blog.post.domain;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.*;
 
 import javax.persistence.Entity;
@@ -39,19 +40,23 @@ public class Post {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    @Setter
+    @Embedded
+    @AttributeOverride(name = "id", column = @Column(name = "category_id"))
+    private CategoryFK categoryFK;
+
     protected Post() {}
 
-    public Post(String title, String body) {
+    public Post(String slug, String title, String body, CategoryFK categoryFK) {
+        this.slug = slug;
         this.title = title;
         this.body = body;
+        this.categoryFK = categoryFK;
     }
 
-    public void update(String title, String body) {
+    public void update(String slug, String title, String body) {
+        this.slug = slug;
         this.title = title;
         this.body = body;
-    }
-
-    public void generateSlug(SlugGenerator slugGenerator) {
-        this.slug = slugGenerator.generate(this.title);
     }
 }

@@ -24,9 +24,11 @@ public class BaseSlugGenerator implements SlugGenerator {
     }
 
     @Override
-    public String generate(String title) {
+    public String generate(String title, String currentSlug) {
         String slug =  convertToSlug(title);
-        checkSlugDuplication(slug);
+        if (currentSlug != null && !slug.equals(currentSlug)) {
+            checkSlugDuplication(slug);
+        }
         return slug;
     }
 }
