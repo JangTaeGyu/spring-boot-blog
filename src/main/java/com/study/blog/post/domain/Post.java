@@ -1,5 +1,6 @@
 package com.study.blog.post.domain;
 
+import com.study.blog.category.domain.Category;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.hibernate.annotations.*;
@@ -38,6 +39,10 @@ public class Post {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     protected Post() {}
 
