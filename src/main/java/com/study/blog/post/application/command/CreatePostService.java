@@ -20,13 +20,14 @@ public class CreatePostService {
     public PostDto createPost(InputPostRequest request) {
         // 카테고리 검증
         Category category = categoryFetcher.fetchCategoryBy(request.getCategoryId());
-        
+
         // post entity 생성
-        Post post = new Post(new CategoryFK(category.getId()), request.getTitle(), request.getBody());
-        
-        // slug 생성
-        post.generateSlug(slugGenerator, request.getTitle());
-        
+        Post post = new Post(
+                slugGenerator.generate(request.getTitle(), null),
+                request.getTitle(),
+                request.getBody(),
+                new CategoryFK(category.getId()));
+
         // post 저장
         postRepository.save(post);
         return PostMapper.toDto(post);

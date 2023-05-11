@@ -17,15 +17,18 @@ public class BaseSlugGenerator implements SlugGenerator {
                 .replaceAll("-{2,}", "-");
     }
 
-    @Override
-    public void checkSlugDuplication(String slug) {
+    private void checkSlugDuplication(String slug) {
         if (postRepository.existsBySlug(slug)) {
             throw new DuplicateSlugException();
         }
     }
 
     @Override
-    public String generate(String title) {
-        return convertToSlug(title);
+    public String generate(String title, String currentSlug) {
+        String slug =  convertToSlug(title);
+        if (currentSlug != null && !slug.equals(currentSlug)) {
+            checkSlugDuplication(slug);
+        }
+        return slug;
     }
 }

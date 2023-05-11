@@ -47,22 +47,17 @@ public class Post {
 
     protected Post() {}
 
-    public Post(CategoryFK categoryFK, String title, String body) {
+    public Post(String slug, String title, String body, CategoryFK categoryFK) {
+        this.slug = slug;
+        this.title = title;
+        this.body = body;
         this.categoryFK = categoryFK;
-        this.title = title;
-        this.body = body;
     }
 
-    public void update(String body) {
-        this.body = body;
-    }
-    public void generateSlug(SlugGenerator slugGenerator, String title) {
-        String newSlug = slugGenerator.generate(title);
-        if (!this.slug.equals(newSlug)) {
-            slugGenerator.checkSlugDuplication(newSlug);
-        }
-
-        this.slug = newSlug;
+    public void update(String slug, String title, String body, CategoryFK categoryFK) {
+        this.slug = slug;
         this.title = title;
+        this.body = body;
+        this.categoryFK = categoryFK;
     }
 }
