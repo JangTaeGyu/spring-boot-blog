@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 @Getter @ToString
 public class InputPostRequest {
-    @NotBlank
+    @NotNull
     private Long categoryId;
 
     @NotBlank

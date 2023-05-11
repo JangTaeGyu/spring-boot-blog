@@ -51,6 +51,10 @@ public class Post {
         this.body = body;
     }
 
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     public void update(String title, String body) {
         this.title = title;
         this.body = body;
